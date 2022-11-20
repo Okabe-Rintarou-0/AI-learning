@@ -11,7 +11,17 @@
 注意需要对特征进行归一化。
 
 ## 模型
-
+```python
+nn.Sequential(
+    nn.Linear(input_dim, 64),
+    nn.ReLU(),
+    nn.Linear(64, 8),
+    nn.ReLU(),
+    nn.Linear(8, 4),
+    nn.ReLU(),
+    nn.Linear(4, 1)
+)
+```
 ## 提交
 
 + 达到 `strong baseline`:
