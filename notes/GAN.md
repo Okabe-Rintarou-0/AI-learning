@@ -104,3 +104,70 @@ JS divergence 不合适的理由在于，对于两个无重叠的分布，JS div
 `WGAN` 这篇论文其实也没有找这样的函数（比较困难），而是将 `Wasserstein distance` 限制在 [-c, c] 之间（c 为常数）。 
 
 ![](imgs/GAN17.png)
+
+## GAN 存在的困难之处
+
++ 难以训练：
+    
+    GAN 是训练两个模型，一旦一个模型的训练出了问题，另一个模型也会出问题。也就是两个人一直在卷，卷到一半对手开摆，你也开摆！
+
+    各种训练的 tips：
+
+    + Tips from Soumith
+        
+        https://github.com/soumith/ganhacks
+    + Tips in DCGAN: Guideline for network architecture design for image generation 
+    
+        https://arxiv.org/abs/1511.06434
+    + Improved techniques for training GANs 
+
+        https://arxiv.org/abs/1606.03498
+    + Tips from BigGAN
+        
+        https://arxiv.org/abs/1809.11096
+        
++ 难以做序列生成：
+    
+    ![](imgs/GAN18.png)
+    
+    Generator 的参数变化会导致输出向量的微小变化，但是由于输出的是一个概率分布，概率分布的微小变化不会显著影响取到最大值的那一维度，也就是微小变化可能不会导致输出词汇的变化。
+    导致 Discriminator 无法进一步学习（梯度消失！）。
+    
++ Mode Collapse
+
+    ![](imgs/GAN19.png)
+    
+    Generator 发现生成某一个特征的图片可以永远骗过 Discriminator，于是它就倾向于一直输出类似的图片。
+    
++ Mode Dropping 
+    
+    ![](imgs/GAN20.png)
+    
+    多样性的丧失。
+
+## GAN 评估
+
++ Inception score
+
+    ![](imgs/GAN21.png)
+    
+    问题在于，对于hw，判定图片质量的方式只是检测识别到了多少张人脸，而非检测红发，黑发，蓝发等多样性特征。
+    
++ FID
+
+    ![](imgs/GAN22.png)
+    
+    取出 hidden layer 的向量而非输出的类别向量，计算分布的 `FID`
+        
+## Conditional Generator
+
+我们无法使用之前无条件生成的架构，因为 Discriminator 只是在学习如何打假，而没有学习生成的图片是否满足给定的条件。
+
+![](imgs/GAN23.png)
+
+需要如下图所示的成对训练资料：
+
+![](imgs/GAN24.png)
+
+不同于之前无条件的情况进行“打假”，将所有训练集的数据都标注为真，生成的都标注为假，这里还需要选中一些训练集的数据（不满足给定条件），标注他们为假。
+
