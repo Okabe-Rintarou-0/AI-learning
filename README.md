@@ -9,5 +9,5 @@
 
 + [notes](./notes) 文件夹下包含了所有的笔记 
 
-+ [exp](./exp) 文件夹下包含了我所做的一些实验，如用 `GAN` 生成 `MNIST 手写数字`：[GAN-MNIST]()
++ [exp](./exp) 文件夹下包含了我所做的一些实验，如用 `GAN` 生成 `MNIST 手写数字`：[GAN-MNIST](./exp/GAN-MNIST)
 
