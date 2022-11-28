@@ -61,8 +61,6 @@ train_transform = transforms.Compose([
 
 > 一个比较重要的问题，这些从某一个数据集搜索得到的策略是否只对固定的数据集有效，论文也通过具体实验证明了AutoAugment的迁移能力，比如将ImageNet数据集上得到的策略用在5个 FGVC数据集（与ImageNet图像输入大小相似）也均有提升。 ​
 
-一些
-
 ### Mixup
 
 两张不同的图像随机线性组合，而同时生成线性组合的标签。
