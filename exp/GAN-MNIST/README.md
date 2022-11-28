@@ -67,3 +67,33 @@
         <td><img src="epoch_49.png" alt=""></td>
     </tr> 
 </table>
+
+## 插值
+
+很有趣的一点是，GAN 是给一个分布输出一个分布。假如说输入的向量是 `a`，得到数字 9，再输入一个向量 `b`，得到数字 8。
+如果你在两个向量之间做插值，一个个输入模型，你将会观察到从 9 转变成 8 的过程！
+
+以下是一些例子：
+
+<table>
+    <tr>
+        <td>转变</td>
+        <td>插值图</td>
+    </tr> 
+    <tr>
+        <td>9 -> 8</td>
+        <td><img src="9to8.png" alt=""></td>
+    </tr> 
+    <tr>
+        <td>3 -> 0</td>
+        <td><img src="3to0.png" alt=""></td>
+    </tr> 
+    <tr>
+        <td>3 -> 8 -> 0</td>
+        <td><img src="3to8to0.png" alt=""></td>
+    </tr> 
+    <tr>
+        <td>9 -> 4</td>
+        <td><img src="9to4.png" alt=""></td>
+    </tr> 
+</table>
