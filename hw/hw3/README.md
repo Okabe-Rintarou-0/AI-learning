@@ -6,6 +6,29 @@
 
 ![](target.jpg)
 
+## 训练结果
+
+有 `mixup` 和无 `mixup` 的两个模型（均为 `pretrained Resnet18`）训练 12 个小时的结果（按照准确率降序排列）：
+
+|模型|准确率|
+|---|---|
+|Resnet18(pretrained + label smoothing + semi-supervised + data augment)|0.84289|
+|Resnet18(pretrained + label smoothing + semi-supervised + data augment + tta)|0.8393|
+|Resnet18(pretrained + label smoothing + mixup + semi-supervised + data augment + tta)|0.83213|
+|Resnet18(pretrained + label smoothing + mixup + semi-supervised + data augment)|0.82616| 
+
++ `mixup` 虽然扩充了数据集，但是也不意味着就一定能带来提升。
+
++ `tta`：
+    ```python
+    # !pip install pytorch_toolbelt
+    from pytorch_toolbelt.inference import tta
+    logits = tta.fliplr_image2label(model, imgs)
+    ```
+  `tta` 在一些情况下确实能提升一点准确度，但是同样不绝对。
+  
++ 提升测试准确度最关键的还是在于使用半监督学习扩充数据集（有大量 **unlabeled** 数据）。
+
 ## Cross Validation
 
 即采用 K-折交叉验证，将训练集（train + val）分为 K 份，训练 K 次，每次取其中一份作为验证集，剩余 K-1 份作为训练集。
@@ -86,6 +109,8 @@ train_transform = transforms.Compose([
 
 参考资料：https://blog.51cto.com/u_15699099/5420932
 
+github：https://github.com/BloodAxe/pytorch-toolbelt
+
 测试时数据增强。在测试时，将图片进行增强（利用 transform）生成多份，然后输入训练好的模型，输出多个结果（结果集合）。然后对所有的结果取平均，作为最终结果。
 
 其实拟人化地讲，就是让训练好的模型看到更多角度的图片（因为进行了多种变换），对这些多角度一一进行评估，将所有评估结果取平均作为最终预测结果。这样的结果会更加准确和稳定。
@@ -103,6 +128,7 @@ train_transform = transforms.Compose([
 
 ## 遇到的一些坑
 
++ 之前犯浑把 validate 集和 train 集合并做 mixup 喂给模型，结果显而易见就是过拟合！
 + `transforms.RandomChoice` 等变换（见上面那篇博客）只能用于 `PIL` 格式，应该先用 `transforms.ToPILImage()` 转换。
 + `transforms.RandomErasing` 等变换（见上面那篇博客）只能用于 `Tensor` 格式，应该先用 `transforms.ToTensor()` 转换。
 + Tensor(H×W×C) 使用 cv2.imwrite / cv2.imshow:
@@ -149,5 +175,5 @@ train_transform = transforms.Compose([
     ```
     其中 `indices` 代表 [1, 2, ...] 这样的序列。
 
-# TODO-list
+## TODO-list
 + [ ] Focal loss
