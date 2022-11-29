@@ -45,10 +45,20 @@
 
 本作业中我做的一些数据增强：
 
-<figure class="half">
-    <img src="aug_1.png" alt="">
-    <img src="aug_2.png" alt="">
-</figure>
+<table>
+    <tr>
+        <td>方法</td>
+        <td>效果图</td>
+    </tr> 
+    <tr>
+        <td>transform</td>
+        <td><img src="aug_1.png" alt=""></td>
+    </tr> 
+    <tr>
+        <td>mixup</td>
+        <td><img src="aug_2.png" alt=""></td>
+    </tr> 
+</table>
 
 ### 基于 `torchvision.transfroms`
 
