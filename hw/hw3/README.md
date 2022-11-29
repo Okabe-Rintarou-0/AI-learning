@@ -1,6 +1,6 @@
 # HW 3
 
-作业链接：[ML2021Spring-hw1](https://www.kaggle.com/competitions/ml2021spring-hw3)
+作业链接：[ML2021Spring-hw3](https://www.kaggle.com/competitions/ml2021spring-hw3)
 
 推荐 Notebook：https://github.com/1am9trash/Hung_Yi_Lee_ML_2021/blob/main/hw/hw3/hw3_code.ipynb
 
