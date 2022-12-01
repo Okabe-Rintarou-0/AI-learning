@@ -6,4 +6,4 @@
 
 + [GAN](GAN.md)
 
-+ [BERT](BERT.md)
++ [BERT & GPT](BERT_GPT.md)

@@ -144,6 +144,41 @@ pretrain 过的 `BERT` 会比随机参数的好。All you need is **fine-tuning!
 
 ![](imgs/BERT24.jpg)
 
+# GPT
+
+![](imgs/GPT2.jpg)
+
+## 预训练
+
+结构类似 `Transformer` 的 `Decoder`（使用 `Masked self-attention`）。
+
+![](imgs/GPT1.jpg)
+
+`GPT` 和 `BERT` 不一样的地方在于 `GPT` 是在是太大了，以至于我们难以 `Fine-tune` 它。 
+
+### In-context learning
+这里不会去利用梯度下降更新 `GPT` 的参数。
+
+### Few-shot/One-shot/Zero-shot Learning
+
+提供任务描述和例子，学会举一反三。
+
++ Few-shot:
+
+    ![](imgs/GPT3.jpg)
+
++ One-shot:
+
+    ![](imgs/GPT4.jpg)
+    
++ Zero-shot:
+    
+    ![](imgs/GPT5.jpg)
+    
+## 效果
+
+![](imgs/GPT6.jpg)
+
 
 
 
