@@ -29,6 +29,9 @@
   
 + 提升测试准确度最关键的还是在于使用半监督学习扩充数据集（有大量 **unlabeled** 数据）。
 
+## Focal Loss
+链接：https://zhuanlan.zhihu.com/p/266023273
+
 ## Cross Validation
 
 即采用 K-折交叉验证，将训练集（train + val）分为 K 份，训练 K 次，每次取其中一份作为验证集，剩余 K-1 份作为训练集。
@@ -185,5 +188,3 @@ github：https://github.com/BloodAxe/pytorch-toolbelt
     ```
     其中 `indices` 代表 [1, 2, ...] 这样的序列。
 
-## TODO-list
-+ [ ] Focal loss
