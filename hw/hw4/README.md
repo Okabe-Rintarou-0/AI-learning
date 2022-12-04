@@ -4,6 +4,10 @@
 
 ![](task.png)
 
+## 效果
+|模型|准确率(public)|准确率(private)|
+|---|---|---|
+|TransformerEncoder(1 attention-head)|0.90142|0.90333|
 ## 特征提取
 
 ![](feature.png)
@@ -35,3 +39,5 @@ self.encoder = nn.TransformerEncoder(self.encoder_layer, num_layers=2)
 ![](param3.png)
 
 ## Conformer
+
+TODO

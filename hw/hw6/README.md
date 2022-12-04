@@ -49,6 +49,47 @@ https://arxiv.org/abs/1704.00028
 并得到对应的惩罚值（梯度越接近 1，这种惩罚值越低）。因为 `1-Lipschitz` 条件也就是在说函数任意一点的梯度不能超过 1，但我们不可能把每一个点都考虑进去，所以是采样一个点，
 对其做 `Gradient Penalty`。
 
+Pytorch 实现（链接：https://blog.csdn.net/junbaba_/article/details/106185743）：
+```python
+def cal_gradient_penalty(disc_net, device, real, fake):
+    """
+    用于计算WGAN-GP引入的gradient penalty
+    """
+    # 系数alpha
+    alpha = torch.rand(real.size(0), 1)
+    alpha = alpha.expand(real.size())
+    alpha = alpha.to(device)
+    
+    # 按公式计算x
+    interpolates = alpha * real + ((1 - alpha) * fake)
+
+    # 为得到梯度先计算y
+    interpolates = interpolates.to(device)
+    interpolates.requires_grad = True
+    disc_interpolates = disc_net(interpolates)
+
+    # 计算梯度
+    gradients = autograd.grad(outputs=disc_interpolates, inputs=interpolates,
+                              grad_outputs=torch.ones(disc_interpolates.size()).to(device),
+                              create_graph=True, retain_graph=True, only_inputs=True)[0]
+
+    # 利用梯度计算出gradient penalty
+    gradient_penalty = ((gradients.norm(2, dim=1) - 1) ** 2).mean()
+    return gradient_penalty
+
+elif opt.model == 'wgan-gp':
+    # WGAN-GP此处与WGAN同
+    D_Loss_real = disc_net(real_img).mean()
+    fake = gen_net(noise)
+    D_Loss_fake = disc_net(fake).mean()
+    # WGAN-GP相较于WGAN引入了gradient penalty限制梯度
+    gradient_penalty = cal_gradient_penalty(disc_net, device, real_img.data, fake.data)
+    D_Loss = -(D_Loss_real - D_Loss_fake) + gradient_penalty * 0.1
+    # 反向传播
+    D_Loss.backward()
+```
+
+
 ![](WGAN-GP1.png)
 
 损失函数：
@@ -57,33 +98,41 @@ https://arxiv.org/abs/1704.00028
 
 ## 效果
 
+AFD: Anime Face Detect
+
+FID: 见 [GAN](../../notes/GAN.md)
+
 <table>
     <tr>
         <td>模型</td>
-        <td>Epoch = 5</td>
-        <td>Epoch = 25</td>
-        <td>Epoch = 50</td>
+        <td>epoch = 50</td>
         <td>结果</td>
+        <td>epochs</td>
+        <td>AFD</td>
+        <td>FID</td>
     </tr>
     <tr>
         <td>DCGAN</td>
-        <td><img src="DCGAN-epoch-5.jpg" alt=""/></td>
-        <td><img src="DCGAN-epoch-25.jpg" alt=""/></td>
         <td><img src="DCGAN-epoch-50.png" alt=""/></td>
         <td><a href="DCGAN-result.jpg">DCGAN-result.jpg</a></td>
+        <td>50</td>
+        <td>24.79</td>
+        <td>38.20</td>
+    </tr>
+    <tr>
+        <td>WGAN</td>
+        <td><img src="WGAN-Epoch_050.jpg" alt=""/></td>
+        <td><a href="WGAN-result.jpg">DCGAN-result.jpg</a></td>
+        <td>50</td>
+        <td>12.69</td>
+        <td>42.94</td>
     </tr>
     <tr>
         <td>WGAN</td>
         <td><img src="" alt=""/></td>
-        <td><img src="" alt=""/></td>
-        <td><img src="" alt=""/></td>
+        <td><a href=""></a></td>
         <td></td>
-    </tr>
-    <tr>
-        <td>WGAN-GP</td>
-        <td><img src="" alt=""/></td>
-        <td><img src="" alt=""/></td>
-        <td><img src="" alt=""/></td>
+        <td></td>
         <td></td>
     </tr>
 </table>
