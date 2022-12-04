@@ -107,31 +107,30 @@ FID: 见 [GAN](../../notes/GAN.md)
         <td>epoch = 50</td>
         <td>结果</td>
         <td>epochs</td>
-        <td>AFD</td>
-        <td>FID</td>
     </tr>
     <tr>
         <td>DCGAN</td>
         <td><img src="DCGAN-epoch-50.png" alt=""/></td>
         <td><a href="DCGAN-result.jpg">DCGAN-result.jpg</a></td>
         <td>50</td>
-        <td>24.79</td>
-        <td>38.20</td>
+    </tr>
+    <tr>
+        <td>DCGAN</td>
+        <td><img src="DCGAN-epoch-200.jpg" alt=""/></td>
+        <td><a href="DCGAN_result2.jpg">DCGAN_result2.jpg</a></td>
+        <td>200</td>
     </tr>
     <tr>
         <td>WGAN</td>
         <td><img src="WGAN-Epoch_050.jpg" alt=""/></td>
         <td><a href="WGAN-result.jpg">WGAN-result.jpg</a></td>
         <td>50</td>
-        <td>12.69</td>
-        <td>42.94</td>
     </tr>
     <tr>
         <td>WGAN</td>
-        <td><img src="" alt=""/></td>
-        <td><a href=""></a></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><img src="WGAN-epoch-200.jpg" alt=""/></td>
+        <td><a href="WGAN-result2.jpg">WGAN-result2.jpg</a></td>
+        <td>200</td>
     </tr>
 </table>
+
