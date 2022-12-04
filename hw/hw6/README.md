@@ -9,7 +9,7 @@ https://arxiv.org/abs/1701.07875
 参考链接：https://zhuanlan.zhihu.com/p/539156191
 
 + 原理
-    
+  
     `WGAN` 的 `Discriminator` 本质上就是要去拟合这样的一个 `Wasserstein Distance`。
     原先的 `GAN` 的 `Discriminator` 是在模拟 JS 散度，是一个分类问题。而 `WGAN` 则变成了一个回归问题，
     故而需要去掉最后的 `Sigmoid` 层。
@@ -45,8 +45,7 @@ https://arxiv.org/abs/1701.07875
 
 https://arxiv.org/abs/1704.00028 
 
-将较为粗糙的 `Clipping` 换为一个梯度的惩罚（类似于正则化）。会在生成的 `x_hat` 和真实的 `x` 之前采样一个 `x`，计算它的梯度，
-并得到对应的惩罚值（梯度越接近 1，这种惩罚值越低）。因为 `1-Lipschitz` 条件也就是在说函数任意一点的梯度不能超过 1，但我们不可能把每一个点都考虑进去，所以是采样一个点，
+将较为粗糙的 `Clipping` 换为一个梯度的惩罚（类似于正则化）。会在生成的 $\hat{x}$ 和真实的 $x$ 之前采样一个 $\tilde{x}$，计算它的梯度，并得到对应的惩罚值（梯度越接近 1，这种惩罚值越低）。因为 `1-Lipschitz` 条件也就是在说函数任意一点的梯度不能超过 1，但我们不可能把每一个点都考虑进去，所以是采样一个点，
 对其做 `Gradient Penalty`。
 
 Pytorch 实现（链接：https://blog.csdn.net/junbaba_/article/details/106185743）：
@@ -122,7 +121,7 @@ FID: 见 [GAN](../../notes/GAN.md)
     <tr>
         <td>WGAN</td>
         <td><img src="WGAN-Epoch_050.jpg" alt=""/></td>
-        <td><a href="WGAN-result.jpg">DCGAN-result.jpg</a></td>
+        <td><a href="WGAN-result.jpg">WGAN-result.jpg</a></td>
         <td>50</td>
         <td>12.69</td>
         <td>42.94</td>
