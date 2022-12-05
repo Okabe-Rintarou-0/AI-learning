@@ -48,16 +48,14 @@ https://arxiv.org/abs/1704.00028
 将较为粗糙的 `Clipping` 换为一个梯度的惩罚（类似于正则化）。会在生成的 $\hat{x}$ 和真实的 $x$ 之前采样一个 $\tilde{x}$，计算它的梯度，并得到对应的惩罚值（梯度越接近 1，这种惩罚值越低）。因为 `1-Lipschitz` 条件也就是在说函数任意一点的梯度不能超过 1，但我们不可能把每一个点都考虑进去，所以是采样一个点，
 对其做 `Gradient Penalty`。
 
-Pytorch 实现（链接：https://blog.csdn.net/junbaba_/article/details/106185743）：
+Pytorch 实现（链接：https://blog.csdn.net/junbaba_/article/details/106185743 ）：
 ```python
 def cal_gradient_penalty(disc_net, device, real, fake):
     """
     用于计算WGAN-GP引入的gradient penalty
     """
     # 系数alpha
-    alpha = torch.rand(real.size(0), 1)
-    alpha = alpha.expand(real.size())
-    alpha = alpha.to(device)
+    alpha = random.random()
     
     # 按公式计算x
     interpolates = alpha * real + ((1 - alpha) * fake)
@@ -132,5 +130,10 @@ FID: 见 [GAN](../../notes/GAN.md)
         <td><a href="WGAN-result2.jpg">WGAN-result2.jpg</a></td>
         <td>200</td>
     </tr>
+    <tr>
+        <td>WGAN-GP</td>
+        <td><img src="WGAN-GP-epoch-200.jpg" alt=""/></td>
+        <td><a href="WGAN-GP-result.jpg">WGAN-GP-result.jpg</a></td>
+        <td>200</td>
+    </tr>
 </table>
-
