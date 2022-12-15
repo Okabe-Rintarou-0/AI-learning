@@ -189,5 +189,43 @@ Actor 网络和 Critic 网络可以共享。
 
 ![](imgs/RL_27.png)
 
+## Reward Shaping
+
+在有些环境中，大多数 action 都无法获得或者无法获得较多的 reward，而只有极少数 action 或者只有在最后才能获得较多的 reward（比如围棋）。
+
+我们需要设计额外的 reward 帮助 agent 学习，也就是 `reward shaping`。
+
+![](imgs/RL_28.png)
+
+为 agent 赋予 curiosity，在探索环境中获取 reward，但是必须要避免一直读无意义的新内容以获取 reward。
+
+## No reward: Learning from demonstration
+
+在有些情况下，我们甚至连 reward 都没有，或者说我们难以设计一个好的 reward。
+这时候，我们可以用一组 export 的 demonstration 来为 agent 提供“动作指导”。
+
+![](imgs/RL_29.jpg)
+
+这种方式有点类似于监督学习，但是我们不能只用监督学习的方式来训练 agent。使用监督学习，实际上就是让 agent 学会模仿 export 的动作，本质上是一种 cloning 的行为。
+但是，我们往往无法知道 export 的 demonstration 里面哪些是不该学习的“个性化”的 action。而且，如果只学习 export 的 demonstration，那么 agent 就会无法学习到一些突发情况的解决方式，
+因为 export 实在太厉害了，往往都是顺利地解决问题。
+
+![](imgs/RL_30.jpg)
+
+### Inverse Reinforcement Learning
+
+我们可以通过 export 的 demonstration 来学习一个 `Reward Function`，然后再利用这个 `Reward Function` 进行普通的强化学习。
+
+![](imgs/RL_31.jpg)
+
+我们需要定义一个 reward function，对于老师的行为和学生的行为都会去评估他们的奖励，我们希望老师的奖励应该要大于学生（学生的奖励 - 老师的奖励作为损失），并且对于学生而言，
+它的目标就是学习获得最大的奖励（基于新的 reward function）。
+
+![](imgs/RL_32.jpg)
+
+整体的框架和思想其实和 GAN 有异曲同工之妙。
+
+![](imgs/RL_33.jpg)
+
 
 
